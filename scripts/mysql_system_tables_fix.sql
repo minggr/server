@@ -748,3 +748,7 @@ ALTER TABLE help_topic MODIFY url TEXT NOT NULL;
 
 # MDEV-7383 - varbinary on mix/max of column_stats
 alter table column_stats modify min_value varbinary(255) DEFAULT NULL, modify max_value varbinary(255) DEFAULT NULL;
+
+# MDEV-14637: use correct maximum length in InnoDB statistics tables
+alter table mysql.innodb_table_stats modify table_name varchar(199);
+alter table mysql.innodb_index_stats modify table_name varchar(199);
