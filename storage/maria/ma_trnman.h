@@ -18,7 +18,7 @@
 
 /**
    Sets table's trn and prints debug information
-   Links table into used_instances if new_trn is not 0
+   Links table into new_trn->used_instances
 
    @param tbl              MARIA_HA of table
    @param newtrn           what to put into tbl->trn
@@ -34,7 +34,10 @@ static inline void _ma_set_trn_for_table(MARIA_HA *tbl, TRN *newtrn)
 
   tbl->trn= newtrn;
   /* Link into used list */
+  if (newtrn->used_instances)
+    ((MARIA_HA*) newtrn->used_instances)->trn_prev= &tbl->trn_next;
   tbl->trn_next= (MARIA_HA*) newtrn->used_instances;
+  tbl->trn_prev= (MARIA_HA**) &newtrn->used_instances;
   newtrn->used_instances= tbl;
 }
 
@@ -59,6 +62,9 @@ static inline void _ma_set_tmp_trn_for_table(MARIA_HA *tbl, TRN *newtrn)
 static inline void _ma_reset_trn_for_table(MARIA_HA *tbl)
 {
   DBUG_PRINT("info",("table: %p  trn: %p -> NULL", tbl, tbl->trn));
+  /* The following is only true if tbl->trn == &dummy_transaction_object */
+  if (tbl->trn_prev)
+    *tbl->trn_prev= tbl->trn_next;
   tbl->trn= 0;
 }
 
