@@ -697,13 +697,13 @@ set @str=replace(@str, "innodb_index_stats", "innodb_table_stats");
 prepare stmt from @str;
 execute stmt;
 
-# update timestamp fields in the innodb stat tables
-set @str="alter table mysql.innodb_index_stats modify last_update timestamp not null default current_timestamp on update current_timestamp";
+# update table_name and timestamp fields in the innodb stat tables
+set @str="alter table mysql.innodb_index_stats modify last_update timestamp not null default current_timestamp on update current_timestamp, modify table_name varchar(199)";
 set @str=if(@have_innodb <> 0, @str, "set @dummy = 0");
 prepare stmt from @str;
 execute stmt;
 
-set @str="alter table mysql.innodb_table_stats modify last_update timestamp not null default current_timestamp on update current_timestamp";
+set @str="alter table mysql.innodb_table_stats modify last_update timestamp not null default current_timestamp on update current_timestamp, modify table_name varchar(199)";
 set @str=if(@have_innodb <> 0, @str, "set @dummy = 0");
 prepare stmt from @str;
 execute stmt;
@@ -748,7 +748,3 @@ ALTER TABLE help_topic MODIFY url TEXT NOT NULL;
 
 # MDEV-7383 - varbinary on mix/max of column_stats
 alter table column_stats modify min_value varbinary(255) DEFAULT NULL, modify max_value varbinary(255) DEFAULT NULL;
-
-# MDEV-14637: use correct maximum length in InnoDB statistics tables
-alter table mysql.innodb_table_stats modify table_name varchar(199);
-alter table mysql.innodb_index_stats modify table_name varchar(199);
