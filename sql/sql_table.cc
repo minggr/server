@@ -5497,6 +5497,11 @@ mysql_rename_table(handlerton *base, const LEX_CSTRING *old_db,
     else
       my_error(ER_ERROR_ON_RENAME, MYF(0), from, to, error);
   }
+||||||| merged common ancestors
+  if (error == HA_ERR_WRONG_COMMAND)
+    my_error(ER_NOT_SUPPORTED_YET, MYF(0), "ALTER TABLE");
+  else if (error)
+    my_error(ER_ERROR_ON_RENAME, MYF(0), from, to, error);
 =======
   if (error == HA_ERR_WRONG_COMMAND)
     my_error(ER_NOT_SUPPORTED_YET, MYF(0), "ALTER TABLE");

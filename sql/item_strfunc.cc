@@ -1597,6 +1597,33 @@ String *Item_str_conv::val_str(String *str)
     res= &tmp_value;
   }
   return res;
+||||||| merged common ancestors
+  if (!(res=args[0]->val_str(str)))
+  {
+    null_value=1; /* purecov: inspected */
+    return 0; /* purecov: inspected */
+  }
+  null_value=0;
+  if (multiply == 1)
+  {
+    uint len;
+    res= copy_if_not_alloced(&tmp_value, res, res->length());
+    len= converter(collation.collation, (char*) res->ptr(), res->length(),
+                                        (char*) res->ptr(), res->length());
+    DBUG_ASSERT(len <= res->length());
+    res->length(len);
+  }
+  else
+  {
+    uint len= res->length() * multiply;
+    tmp_value.alloc(len);
+    tmp_value.set_charset(collation.collation);
+    len= converter(collation.collation, (char*) res->ptr(), res->length(),
+                                        (char*) tmp_value.ptr(), len);
+    tmp_value.length(len);
+    res= &tmp_value;
+  }
+  return res;
 =======
   uint alloced_length, len;
 

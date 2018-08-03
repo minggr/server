@@ -1729,6 +1729,14 @@ JOIN::optimize_inner()
     DBUG_RETURN(1);
   }
 
+||||||| merged common ancestors
+  if (thd->is_error())
+  {
+    error= 1;
+    DBUG_PRINT("error",("Error from optimize_cond"));
+    DBUG_RETURN(1);
+  }
+
 =======
 >>>>>>> origin/10.2
   {

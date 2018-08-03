@@ -8037,6 +8037,8 @@ String *Field_longstr::uncompress(String *val_buffer, String *val_ptr,
                                   const uchar *from, uint from_length)
 {
   if (from_length)
+||||||| merged common ancestors
+  if (table->blob_storage)    // GROUP_CONCAT with ORDER BY | DISTINCT
 =======
   /*
     For min/max fields of statistical data 'table' is set to NULL.
