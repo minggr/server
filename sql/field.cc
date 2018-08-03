@@ -8032,10 +8032,20 @@ int Field_longstr::compress(char *to, uint to_length,
   or compressed data was longer than original data.
 */
 
+<<<<<<< HEAD
 String *Field_longstr::uncompress(String *val_buffer, String *val_ptr,
                                   const uchar *from, uint from_length)
 {
   if (from_length)
+=======
+  /*
+    For min/max fields of statistical data 'table' is set to NULL.
+    It could not be otherwise as this data is shared by many instances
+    of the same base table.
+  */
+
+  if (table && table->blob_storage)    // GROUP_CONCAT with ORDER BY | DISTINCT
+>>>>>>> origin/10.2
   {
     uchar method= (*from & 0xF0) >> 4;
 
