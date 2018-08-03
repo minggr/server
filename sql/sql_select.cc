@@ -1720,25 +1720,7 @@ JOIN::optimize_inner()
     if (select_lex->handle_derived(thd->lex, DT_OPTIMIZE))
       DBUG_RETURN(1);
   }
-     
-<<<<<<< HEAD
-  if (unlikely(thd->is_error()))
-  {
-    error= 1;
-    DBUG_PRINT("error",("Error from optimize_cond"));
-    DBUG_RETURN(1);
-  }
 
-||||||| merged common ancestors
-  if (thd->is_error())
-  {
-    error= 1;
-    DBUG_PRINT("error",("Error from optimize_cond"));
-    DBUG_RETURN(1);
-  }
-
-=======
->>>>>>> origin/10.2
   {
     having= optimize_cond(this, having, join_list, TRUE,
                           &having_value, &having_equal);

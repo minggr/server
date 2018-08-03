@@ -8032,22 +8032,10 @@ int Field_longstr::compress(char *to, uint to_length,
   or compressed data was longer than original data.
 */
 
-<<<<<<< HEAD
 String *Field_longstr::uncompress(String *val_buffer, String *val_ptr,
                                   const uchar *from, uint from_length)
 {
   if (from_length)
-||||||| merged common ancestors
-  if (table->blob_storage)    // GROUP_CONCAT with ORDER BY | DISTINCT
-=======
-  /*
-    For min/max fields of statistical data 'table' is set to NULL.
-    It could not be otherwise as this data is shared by many instances
-    of the same base table.
-  */
-
-  if (table && table->blob_storage)    // GROUP_CONCAT with ORDER BY | DISTINCT
->>>>>>> origin/10.2
   {
     uchar method= (*from & 0xF0) >> 4;
 
@@ -8229,7 +8217,13 @@ int Field_blob::store(const char *from,size_t length,CHARSET_INFO *cs)
     return 0;
   }
 
-  if (table->blob_storage)    // GROUP_CONCAT with ORDER BY | DISTINCT
+  /*
+    For min/max fields of statistical data 'table' is set to NULL.
+    It could not be otherwise as this data is shared by many instances
+    of the same base table.
+  */
+
+  if (table && table->blob_storage)    // GROUP_CONCAT with ORDER BY | DISTINCT
   {
     DBUG_ASSERT(!f_is_hex_escape(flags));
     DBUG_ASSERT(field_charset == cs);

@@ -3322,7 +3322,7 @@ int read_statistics_for_tables_if_needed(THD *thd, TABLE_LIST *tables)
   The function is called when executing the statement DROP TABLE 'tab'.
 */
 
-int delete_statistics_for_table(THD *thd, LEX_CSTRING *db, LEX_CSTRING *tab)
+int delete_statistics_for_table(THD *thd, const LEX_CSTRING *db, const LEX_CSTRING *tab)
 {
   int err;
   enum_binlog_format save_binlog_format;

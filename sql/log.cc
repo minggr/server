@@ -3129,20 +3129,8 @@ bool MYSQL_QUERY_LOG::write(THD *thd, time_t current_time,
     if (my_b_write(&log_file, (uchar*) sql_text, sql_text_len) ||
         my_b_write(&log_file, (uchar*) ";\n",2) ||
         flush_io_cache(&log_file))
-<<<<<<< HEAD
       goto err;
 
-=======
-      tmp_errno= errno;
-    if (tmp_errno)
-    {
-      error= 1;
-      if (! write_error)
-      {
-        write_error= 1;
-        sql_print_error(ER_DEFAULT(ER_ERROR_ON_WRITE), name, tmp_errno);
-      }
->>>>>>> origin/10.2
     }
   }
 end:

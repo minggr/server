@@ -4829,5 +4829,5 @@ void print_keydup_error(TABLE *table, KEY *key, const char *msg, myf errflag);
 void print_keydup_error(TABLE *table, KEY *key, myf errflag);
 
 int del_global_index_stat(THD *thd, TABLE* table, KEY* key_info);
-int del_global_table_stat(THD *thd, LEX_CSTRING *db, LEX_CSTRING *table);
+int del_global_table_stat(THD *thd, const  LEX_CSTRING *db, const LEX_CSTRING *table);
 #endif /* HANDLER_INCLUDED */
