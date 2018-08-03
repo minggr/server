@@ -2497,7 +2497,7 @@ ORDER BY tb1.i1;
 id	select_type	table	type	possible_keys	key	key_len	ref	rows	filtered	Extra
 1	SIMPLE	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	Impossible WHERE noticed after reading const tables
 Warnings:
-Note	1003	select straight_join 'p' AS `v2` from `test`.`t1` join `test`.`t1` `tb1` left join `test`.`t1` `tb2` on(multiple equal(`test`.`tb2`.`v1`, NULL)) where 0 order by NULL
+Note	1003	select straight_join 'p' AS `v2` from `test`.`t1` join `test`.`t1` `tb1` left join `test`.`t1` `tb2` on(multiple equal(NULL, NULL)) where 0 order by NULL
 EXPLAIN EXTENDED
 SELECT STRAIGHT_JOIN t2.v2
 FROM
@@ -2510,7 +2510,7 @@ ORDER BY tb1.i1;
 id	select_type	table	type	possible_keys	key	key_len	ref	rows	filtered	Extra
 1	SIMPLE	NULL	NULL	NULL	NULL	NULL	NULL	NULL	NULL	Impossible WHERE noticed after reading const tables
 Warnings:
-Note	1003	select straight_join 'p' AS `v2` from `test`.`t1` join `test`.`t1` `tb1` left join `test`.`t1` `tb2` on(multiple equal(`test`.`tb2`.`v1`, NULL)) where 0 order by NULL
+Note	1003	select straight_join 'p' AS `v2` from `test`.`t1` join `test`.`t1` `tb1` left join `test`.`t1` `tb2` on(multiple equal(NULL, NULL)) where 0 order by NULL
 SELECT STRAIGHT_JOIN DISTINCT t2.v2
 FROM
 (t1 as tb1 LEFT JOIN t1 AS tb2 ON tb2.v1 = tb1.v2)
